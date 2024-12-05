@@ -1,0 +1,21 @@
+import requests
+import pandas
+from bs4 import BeautifulSoup
+response=requests.get("https://www.amazon.in/Bella-Vita-Organic-Perfumes-Fragrance/dp/B09232XNTX/ref=sr_1_2_sspa?crid=3OP4EP2V0X64E&dib=eyJ2IjoiMSJ9.EBcSvCYUMOKatTPkCzkyPpQD0sYceb1pi5k4YfWYHFTgZUO5Pdd0HD6-pouI5x8F_ypdFdqsZQQLHuFYr9LU6mt5vKH7LcA7aQcEIHMMal1yo7aie50iCfV05cwZDyQBjEYiivgzI-8XwxRNT1N0qh6W1vsKkj9Fej_c8WW6GVzTClbsqnWOFlwzLUtfi_9JYgIR0yco2R8xE1_Ifb5MvEkRPqUlcRgfm9LGxSS5cEzgw0_uzFAdQBDVSBr2gkRXcoC3jYe6ouj67pff_MNwzGvYRn0Q2rG4yBKKeuXOVOM.MfU1OUj2ZxSu5gMjqQc5YrOF2_TChxApCtbhV1UdpGI&dib_tag=se&keywords=perfume%2Bfor%2Bwomen%2Blong%2Blasting%2Bsmell&qid=1733399164&sprefix=perf%2Caps%2C620&sr=8-2-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1")
+print(response)
+soup=BeautifulSoup(response.content,'html.parser')
+print(soup)
+images=soup.find_all('div',class_="leftCol")
+
+image=[]
+for i in images[0:4]:
+    d=i.div.img['src']
+    image.append(d)
+print(image) 
+df = pandas.DataFrame()
+print(df)
+data={'images':image}
+print(data)
+df=pandas.DataFrame(data)
+print(df) 
+df.to_csv("Perfumes_data.csv")
